@@ -1,0 +1,94 @@
+<main class="page">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Практична робота №2</p>
+      <h1>🎬 Каталог фільмів</h1>
+      <p class="subtitle">
+        Робота з даними та прив’язка даних в Angular
+      </p>
+    </div>
+
+    <div class="counter">
+      Всього фільмів: <strong>{{ movies.length }}</strong>
+    </div>
+  </section>
+
+  <section class="form-card">
+    <h2>Додати новий фільм</h2>
+
+    <div class="form-grid">
+      <label>
+        Назва
+        <input
+          type="text"
+          [(ngModel)]="newMovie.title"
+          placeholder="Наприклад, Dune"
+        />
+      </label>
+
+      <label>
+        Рік
+        <input
+          type="number"
+          [(ngModel)]="newMovie.year"
+          min="1900"
+          max="2100"
+        />
+      </label>
+
+      <label>
+        Рейтинг
+        <input
+          type="number"
+          [(ngModel)]="newMovie.rating"
+          min="1"
+          max="10"
+          step="0.1"
+        />
+      </label>
+    </div>
+
+    <button
+      class="add-button"
+      (click)="addMovie()"
+      [disabled]="!newMovie.title.trim()"
+    >
+      ➕ Додати фільм
+    </button>
+  </section>
+
+  <section class="movies">
+    <h2>Список фільмів</h2>
+
+    <div class="movie-grid">
+      <article
+        class="movie-card"
+        *ngFor="let movie of movies; let i = index"
+        [ngClass]="getRatingClass(movie.rating)"
+      >
+        <div class="movie-top">
+          <span class="rating">⭐ {{ movie.rating }}/10</span>
+          <button class="delete-button" (click)="deleteMovie(i)">
+            Видалити
+          </button>
+        </div>
+
+        <h3>{{ movie.title }}</h3>
+        <p>Рік: <strong>{{ movie.year }}</strong></p>
+        <p>Рейтинг: <strong>{{ movie.rating }}/10</strong></p>
+
+        <div class="recommendation" *ngIf="movie.rating >= 8">
+          ✓ Рекомендовано
+        </div>
+
+        <div class="status" *ngIf="movie.rating >= 5 && movie.rating < 8">
+          Середній рейтинг
+        </div>
+
+        <div class="status low-status" *ngIf="movie.rating < 5">
+          Низький рейтинг
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
