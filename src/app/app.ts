@@ -36,3 +36,4 @@ export class App {
     this.movieService.removeMovie(id);
   }
 }
+/// simple
